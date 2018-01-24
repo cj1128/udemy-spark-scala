@@ -53,10 +53,10 @@ object PopularMovies {
     val result = lines.map(parseLine)
       .reduceByKey((x, y) => x + y)
       .map(x => (x._2, x._1)) // (Count, MovieID)
-      .sortByKey()
+      .sortByKey(false)
       .map(x => (mapping.value(x._2), x._1)) // (MovieName, Count)
-      .collect()
-      
+      .take(10)
+
     for(r <- result) {
       val moveID = r._1
       val count = r._2
